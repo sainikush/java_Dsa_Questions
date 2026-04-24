@@ -24,6 +24,6 @@ public class Arrays_ArrayList {
             arr[i] = in.next();
         }
         System.out.println(Arrays.toString(arr));
-
+        System.out.println("ajhfjkshfkasjh");
     }
 }
