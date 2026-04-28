@@ -1,7 +1,7 @@
 public class Linear_SearchInSTrings {
 
     public static boolean Search(String str, char target){
-        if(str.length() == 0){
+        if(str.isEmpty()){ // str.length() == 0
             return false;
         }
         for (int i = 0; i < str.length() ; i++) {
@@ -14,7 +14,7 @@ public class Linear_SearchInSTrings {
 
     // for each
     public static boolean Search2(String str, char target){
-        if (str.length() == 0){
+        if (str.isEmpty()){
             return false;
         }
         for(char ch : str.toCharArray()){
