@@ -15,7 +15,7 @@ public class Linear_SearchInSTrings {
     // for each
     public static boolean Search2(String str, char target){
         if (str.length() == 0){
-            return true;
+            return false;
         }
         for(char ch : str.toCharArray()){
             if (ch == target){
