@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -24,6 +25,9 @@ public class Arrays_ArrayList {
             arr[i] = in.next();
         }
         System.out.println(Arrays.toString(arr));
+
+        // array list
+        ArrayList<Integer> list = new ArrayList<>(10);
 
     }
 }
