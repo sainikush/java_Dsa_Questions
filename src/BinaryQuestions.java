@@ -90,7 +90,6 @@ public static int[] LetCode34(int[]nums, int target){
 // leetCode34 : 2nd function
     // this function just returns the index value of target
     public static int searchIndex(int[] nums, int target, boolean findStartIndex){
-
         // potential answer
 
         int ans = -1;
@@ -115,6 +114,76 @@ public static int[] LetCode34(int[]nums, int target){
         }
         return ans;
     }
+
+    // Position of an element in infinite array  : Amazon
+    static int Range_Of_window(int[] arr, int target){
+        // first find the range
+        // first start with a window of size 2
+        int start = 0;
+        int end = 1;
+
+        // conditions for the target to lie in the range
+        while (target > arr[end]){
+            int temp = end + 1; // temp is my new start
+            // double the window value
+            // end = Previous end + sizeof window*2
+            end = end + (end - start + 1) * 2;
+            start = temp;
+        }
+        return Infinite_Binary_Search(arr,target,start,end);
+    }
+    public static int Infinite_Binary_Search(int[]arr, int target, int start, int end){
+        while (start <= end){
+            int mid = start + (end - start)/2;
+            if (target < arr[mid]){
+                end = mid - 1;
+            } else if (target > arr[mid]) {
+                start = mid + 1;
+            } else {
+                return mid;
+            }
+        }
+        return -1;
+    }
+
+    // leet code : 852, 162
+    // link : http://leetcode.com/problems/find-peak-element/submissions/1992395028/
+    // Peak Index In a Mountain Array
+
+    public static int peakIndexInMountainArray(int[] arr){
+        int start = 0;
+        int end = arr.length - 1;
+
+        while (start < end){
+            int mid = start + (end - start)/2;
+            if (arr[mid] > arr[mid+1]){
+                // you are in decreasing part of array, this may be ans
+                // but look at left
+                // this is why end != mid -1;
+                end = mid;
+            }else {
+                // you are in ascending part of array
+                start = mid + 1; // because we know that mid+1 element > mid element
+            }
+        }
+        // in the end start == end and pointing  to largest number because of 2 checks above.
+        // start & end are always trying to find max element in the above 2 checks.
+        // hence, when they are pointing to just one element, that is the max element due to checks.
+        // at every point of time for start & end they have best possible answers at that time
+        // ans if we are saying that only one item is remaing, hece cus of above line that is best possible line.
+        return start;// return start or end as both are equall.
+    }
+
+
+    // Leetcode 1095:
+    // link: https://leetcode.com/problems/find-in-mountain-array/description/
+    //      find in Mountain ARRay
+
+
+
+
+
+
 
     public static void main(String[] args) {
         // ceiling of  a Number
@@ -142,5 +211,17 @@ public static int[] LetCode34(int[]nums, int target){
         int target4 = 8;
         int[] result4 = LetCode34(nums,target4);
         System.out.println(Arrays.toString(result4));
+
+        System.out.println("------Position of an element in infinite array  : Amazon-----");
+
+        int[] arr2 = {2,3,4,5,9,8,11,13,15,17,19,21,22,23,25,28,30};
+        int target5 = 11;
+        int result5 = Range_Of_window(arr2,target5);
+        System.out.println(result5);
+
+        System.out.println("---peakIndexInMountainArray--");
+        int[] arr3 = {4,5,6,7,8,3,2,1,0};
+        System.out.println(peakIndexInMountainArray(arr3));
+
     }
 }
