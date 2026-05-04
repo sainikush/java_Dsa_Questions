@@ -178,10 +178,211 @@ public static int[] LetCode34(int[]nums, int target){
     // Leetcode 1095:
     // link: https://leetcode.com/problems/find-in-mountain-array/description/
     //      find in Mountain ARRay
+// basciallly we will use 3 function 2 helper function and 1 main function
+    // 1st peak Mountain Array
+    public static int PeakMoutainArrayFunc(int[] arr){
+        int start = 0;
+        int end = arr.length - 1;
+        while (start < end){
+            int mid = start + (end - start)/2;
+            if (arr[mid]>arr[mid+1]){
+                end = mid;
+            }else {
+                start = mid + 1;
+            }
+        }
+        return start;
+    }
+    public static int Agonistic(int[]arr, int target,int start, int end){
+        int ans =  -1;
+        boolean isAsc = arr[start] < arr[end];
+        while (start <= end){
+            int mid = start + (end - start)/2;
+            if (target == arr[mid]){
+                return mid;
+            }
+            if (isAsc){
+                if (target < arr[mid]){
+                    end = mid -1;
+                }else {
+                    start = mid + 1;
+                }
+            }else {
+                if (target > arr[mid]){
+                    end = mid - 1;
+                }else {
+                    start = mid + 1;
+                }
+            }
+        }
+        return ans;
+    }
 
+public static int PeakMoutainArray(int[]arr, int target){
+        int peak = PeakMoutainArrayFunc(arr);
+        int firstry = Agonistic(arr,target,0,peak);
+        if (firstry != -1){
+            return firstry;
+        }
+        // try to search in Second half:
+    return Agonistic(arr,target,peak+1,arr.length -1);
 
+}
 
+// Search in sorted array
+    // we have to find the pivot element
+    // what is pivot : largeest no in an array
+    // case 1 check if arr[mid] > arr[mid+1]; if yes then return mid
+    // case 2 : check if arr[mid] <  arr[mid -1]: if yes then return mid - 1;
+    // case 3 : check arr[start] >= arr[mid]; if yes return end = mid -1 else start = mid + 1;
+    public static int RotatedBinary(int[]arr, int target,int start, int end){
+        while (start <= end){
+            int mid = start + (end - start)/2;
 
+            if(target < arr[mid]){
+                end = mid - 1;
+            } else if (target > arr[mid]) {
+                start = mid + 1;
+            }else {
+                return mid;
+            }
+        }
+        return -1;
+    }
+ public static int FindPivot(int[]arr){
+        int start = 0;
+        int end = arr.length - 1;
+         while (start < end){
+             int mid = start + (end - start)/2;
+             if (arr[mid] > arr[mid+1]){
+                 return mid;
+             }
+             if (arr[mid]<arr[mid - 1]){
+                 return mid -1;
+             }
+
+             if (arr[start] >= arr[mid]){
+                 end = mid - 1;
+             }else {
+                 start = mid + 1;
+             }
+         }
+         return -1;
+ }
+
+// Main funtion
+    public static int SearchInArray(int[]arr, int target){
+        // if pivot found then check these cases:
+        // case1 : if (pivot == -1) return binary search.
+        //case 2 : arr[pivot] == target then return pivot;
+        // case 3 : arr[pivot] < target then return binary search (arr, target,0,pivot -1;
+        //   at end return binary search(arr,target,pivot+1,arr.lenght - 1;
+         int pivot = FindPivot(arr);
+        if (pivot == -1){
+            return RotatedBinary(arr,target,0,arr.length -1);
+        }
+        // if pivot found you have two asc sorted array
+        if (arr[pivot] == target){
+            return pivot;
+        }
+        if (arr[pivot] < target){
+            return RotatedBinary(arr,target,0,arr.length - 1);
+        }
+        return RotatedBinary(arr,target,pivot + 1,arr.length-1);
+    }
+
+    // Search in duplicate for duplicate values in sorted roted array
+    public static int FindPivotInDuplicate(int[]arr){
+        int start = 0;
+        int end = arr.length -1;
+
+        while (start < end){
+            int mid = start + (end - start)/2;
+            if (arr[mid] > arr[mid+1]){
+                return mid;
+            }
+            if(arr[mid] < arr[mid -1]){
+                return mid - 1;
+            }
+            // case3 what if the start,end and middle value is same
+            // then skip the duplicates
+            if (arr[start] == arr[mid] && arr[end] == arr[mid]){
+                // now check if start or end are pivot
+                if (arr[start] > arr[start + 1]){
+                    return start;
+                }
+                start++;
+                if (arr[end] < arr[end -1]){
+                    return end -1;
+                }
+                end--;
+            }
+            // left side array is sorted so check in the right side
+            else if (arr[start]<arr[mid] || arr[start] == arr[mid] && arr[mid] >arr[end]) {
+                start = mid + 1;
+            }else {
+                end = mid - 1;
+            }
+        }
+        return -1;
+    }
+
+    // Rotation count in the sorted array
+    public static int RotationCount(int[] arr){
+        int piovt = FindPivot((arr));// use this when array has no duplicate values
+//        int pivot = FindPivotInDuplicate(arr);// use this when duplicated value are present
+        return piovt + 1;
+    }
+
+    // leetCode 410 :
+    // Split Array largest Sum
+    // check in how many parts you can split the array that is sum is not grater then mid element
+    // suppose : [7,2,5,10,8] this array is given so we have to find  split array subarrays
+    // there is cacthc your subarray must be less than m . m is total number in which you can split the array
+    // approch
+    // find the max no in array , and total sum in array : eg 10 is max and total sum of array is 32
+    // [10,32]
+    // mid = 10 + 32/2 = 21. 21 should be the no in which you have to split he array
+    // [7,2,5] and [18,8] their sum is 14 and 18 in which 18 is largest
+    // if (piesces <= m) menas end = mid;
+    // s = 10 & end = 21;
+    // mid = 10+21/2 = 15;
+    // [7,2,5] [8] [10] : here pieces = 3
+    // start = mid + 1;
+    // do it that way till start and end are equall
+
+    // logic
+    public static int SplitArray(int[]arr, int m){
+        int start = 0;
+        int end = 0;
+
+        for (int i = 0; i < arr.length; i++) {
+            start = Math.max(start,arr[i]); // will have the max number
+            end = end + arr[i]; // will contain the total sum;
+        }
+
+        // Binary Search
+        while (start < end){
+            int mid = start + (end - start)/2;// potenial answer
+
+            int sum = 0;
+            int piece = 1;
+            for(int arrs : arr){
+                if ((sum + arrs) > end){ // you can't add this array
+                    sum = arrs;
+                    piece++;
+                } else {
+                    start = start + arrs;
+                }
+            }
+            if (piece >m){
+                start = mid + 1;
+            }else {
+                end = mid;
+            }
+        }
+        return start; // here start and end are equalls
+    }
 
 
 
