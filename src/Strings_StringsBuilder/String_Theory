@@ -6,14 +6,20 @@ This masterclass guide transforms the comprehensive tutorial by Kunal Kushwaha i
 
 ### What is a String?
 
-In Java, a `String` is essentially a sequence or collection of characters. While it may feel like a primitive data type because of how often we use it, it is a **Class** in the `java.lang` package.
+In Java, a `String` is essentially a sequence or collection of characters.
+ While it may feel like a primitive data type because of how often we use it, it is a **Class** in the `java.lang` package.
 
 **Formal Definition:**
-A `String` is an object that represents a sequence of `char` values. It is immutable, meaning its state cannot be modified after it is created. In the university context, a 5-mark answer should emphasize that it implements `Serializable`, `Comparable<String>`, and `CharSequence` interfaces.
+A `String` is an object that represents a sequence of `char` values.
+It is immutable, meaning its state cannot be modified after it is created.
+In the university context, a 5-mark answer should emphasize that it implements
+`Serializable`, `Comparable<String>`, and `CharSequence` interfaces.
 
 ### Why does it exist?
 
-Strings are the primary way we handle textual data. Java treats them specially (not like a standard class) to optimize memory and performance since almost every program relies heavily on text.
+Strings are the primary way we handle textual data.
+ Java treats them specially (not like a standard class) to optimize memory and performance
+ since almost every program relies heavily on text.
 
 ### How it works internally
 
