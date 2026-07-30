@@ -1,6 +1,26 @@
 package Linked_List_Qes;
 
 public class RemoveDuplicates {
+    private Node head;
+    private Node tail;
+    private int size;
+
+    public RemoveDuplicates(){
+        this.size = 0;
+    }
+
+    // helper method to insert elements at the end
+    public void insertLast(int val){
+        Node node = new Node(val);
+        if (tail == null){
+            head = node;
+            tail = node;
+        } else {
+            tail.next = node;
+            tail = node;
+        }
+        size++;
+    }
 
     public void display(){
         Node temp = head;
@@ -38,6 +58,22 @@ public class RemoveDuplicates {
     }
 
     public static void main(String[] args) {
+        RemoveDuplicates list = new RemoveDuplicates();
+
+        // Populate with sorted duplicate values
+        list.insertLast(1);
+        list.insertLast(1);
+        list.insertLast(2);
+        list.insertLast(3);
+        list.insertLast(3);
+
+        System.out.print("Original List: ");
+        list.display();
+
+        list.duplicate();
+
+        System.out.print("After Removing Duplicates: ");
+        list.display();
 
     }
 
