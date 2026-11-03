@@ -1,9 +1,6 @@
 package ThirdTime.Array;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class Arraylist {
 
@@ -75,5 +72,19 @@ public class Arraylist {
         ArrayList<Integer> newList = new ArrayList<>(list3);
         System.out.println("Printing the new list : "+newList);
         System.out.println("checking is empty: "+newList.isEmpty());
+
+        // Linked list
+        LinkedList<Integer> ll = new LinkedList<>();
+        ll.add(10);
+        System.out.println(ll);
+        ll.addFirst(1);
+        System.out.println(ll);
+        ll.addLast(3);
+        System.out.println(ll);
+
+        System.out.println(ll.getLast());
+
+        System.out.println(ll.peek());
+        System.out.println(ll.poll());// reuturn and remove the first element
     }
 }
